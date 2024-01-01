@@ -1,5 +1,12 @@
+import Form from "./Form";
+import ListItem from "./ListItem";
+
 const App = () => {
-  return <h2>Grocery Bud - Starter</h2>;
+  return (
+    <main className="section-center">
+      <Form />
+    </main>
+  );
 };
 
 export default App;
