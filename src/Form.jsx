@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ListItem from "./ListItem";
 import { nanoid } from "nanoid";
+import { ToastContainer, toast } from "react-toastify";
 
 const Form = () => {
   const [item, setItem] = useState("");
@@ -11,11 +12,16 @@ const Form = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!item) return;
-    const id = nanoid();
-    const objList = [...itemsList, { id, item }];
-    saveItem(objList);
-    setItemsList(objList);
+    try {
+      if (!item) return;
+      const id = nanoid();
+      const objList = [...itemsList, { id, item }];
+      saveItem(objList);
+      setItemsList(objList);
+      toast.success("awesome");
+    } catch (err) {
+      toast.error("error message");
+    }
     setItem("");
   };
 
@@ -31,8 +37,13 @@ const Form = () => {
 
   const deleteItem = (i) => {
     const newItemList = itemsList.filter((item) => item.id !== i);
-    saveItem(newItemList);
-    setItemsList(newItemList);
+    try {
+      saveItem(newItemList);
+      setItemsList(newItemList);
+      toast.success("awesome");
+    } catch (err) {
+      toast.error("error message");
+    }
   };
 
   useEffect(() => {
@@ -56,6 +67,7 @@ const Form = () => {
         </div>
       </form>
       <ListItem list={itemsList} deleteItem={deleteItem} />
+      <ToastContainer position="top-center" />
     </>
   );
 };
